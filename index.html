@@ -61,7 +61,7 @@
         <h2 style="text-align:center; color:#228B22;">Welcome</h2>
         <div class="important-note">
             Current Acceptance (December 12, 2025): ONLY Used Oil • Busted Fluorescent Lamps (BFL) • E-Waste • Expired Medicines<br><br>
-            Bring to permanent drop-off points or scheduled collection events. Other items: Contact barangay/CEPMO.
+            Bring to the drop-off point below or scheduled collection events.
         </div>
         <p style="text-align:center; font-size:1.2em; max-width:900px; margin:30px auto;">
             Managed by the City Environment and Parks Management Office (CEPMO) under Atty. Rhenan G. Diwas (Head) and Engr. Wilbur S. Suanding (PCO & WHWMD Head).
@@ -70,7 +70,7 @@
         <div class="tabs" id="database">
             <button class="tab-btn active" data-tab="accepted">Accepted Items</button>
             <button class="tab-btn" data-tab="general">General HHW Info</button>
-            <button class="tab-btn" data-tab="locations">Drop-Off & Collection Points</button>
+            <button class="tab-btn" data-tab="locations">Drop-Off Point</button>
         </div>
 
         <!-- Accepted Items Tab -->
@@ -81,7 +81,7 @@
                 <div class="card accepted">
                     <h3>Used Oil</h3>
                     <p><strong>Why hazardous?</strong> Pollutes water and soil severely.</p>
-                    <p><strong>How to dispose:</strong> Pour into sealed containers; drop at facility/events.</p>
+                    <p><strong>How to dispose:</strong> Pour into sealed containers; drop at the facility.</p>
                 </div>
                 <div class="card accepted">
                     <h3>Busted Fluorescent Lamps (BFL)</h3>
@@ -91,7 +91,7 @@
                 <div class="card accepted">
                     <h3>E-Waste</h3>
                     <p><strong>Why hazardous?</strong> Contains lead, mercury, etc.</p>
-                    <p><strong>How to dispose:</strong> Drop intact items at Bakakeng or events.</p>
+                    <p><strong>How to dispose:</strong> Drop intact items at the facility.</p>
                 </div>
                 <div class="card accepted">
                     <h3>Expired Medicines</h3>
@@ -136,40 +136,20 @@
             </div>
         </div>
 
-        <!-- Drop-Off & Collection Points Tab -->
+        <!-- Drop-Off Point Tab (only one point) -->
         <div id="locations" class="tab-content">
-            <input type="text" id="search-location" placeholder="Search drop-off points or events...">
             <p style="text-align:center; font-size:1.1em; max-width:900px; margin:0 auto 30px;">
-                Contact CEPMO for current schedules and requirements. Collection events are often announced on social media or barangay notices.
+                Main permanent drop-off point for the accepted items. Contact CEPMO for schedule and requirements.
             </p>
             <div class="grid">
                 <div class="card">
-                    <h3>Bakakeng Central Permanent Drop-Off</h3>
-                    <p><strong>Address:</strong> Bakakeng Central/Sur MRF, Baguio City</p>
-                    <p><strong>Hours/Info:</strong> Contact CEPMO for schedule</p>
-                    <p><strong>Notes:</strong> Main permanent drop-off for the 4 accepted items</p>
-                    <p><strong>GPS (approx):</strong> 16.3960, 120.5783</p>
-                </div>
-                <div class="card">
-                    <h3>Scheduled Collection Events</h3>
-                    <p><strong>Address:</strong> Various locations (e.g., Malcom Square, barangays, schools)</p>
-                    <p><strong>Hours/Info:</strong> Announced events only</p>
-                    <p><strong>Notes:</strong> Regular drives for e-waste and HHW – check CEPMO announcements</p>
-                    <p><strong>Example location:</strong> Malcom Square – GPS 16.4138, 120.5957</p>
-                </div>
-                <div class="card">
-                    <h3>The4E Hazardous Waste Facility (Planned)</h3>
-                    <p><strong>Address:</strong> Dontogan Area (near DA Bureau of Soils)</p>
-                    <p><strong>Hours/Info:</strong> Expected operational 2026+</p>
-                    <p><strong>Notes:</strong> Future permanent site for expanded management</p>
-                    <p><strong>GPS (approx):</strong> 16.3818, 120.5722</p>
-                </div>
-                <div class="card">
-                    <h3>CEPMO Coordination Office</h3>
-                    <p><strong>Address:</strong> Baguio City Hall</p>
-                    <p><strong>Hours/Info:</strong> Regular office hours</p>
-                    <p><strong>Notes:</strong> Best place to inquire about schedules and requirements</p>
-                    <p><strong>GPS (approx):</strong> 16.4140, 120.5910</p>
+                    <h3>Bakakeng Central Drop-Off Point</h3>
+                    <p><strong>Address:</strong> Bakakeng Central/Sur Materials Recovery Facility (MRF), Baguio City</p>
+                    <p><strong>Accepted Items:</strong> Used Oil, Busted Fluorescent Lamps (BFL), E-Waste, Expired Medicines</p>
+                    <p><strong>Hours/Info:</strong> Contact CEPMO for current schedule</p>
+                    <p><strong>Contact:</strong> City Environment and Parks Management Office (CEPMO)</p>
+                    <p><strong>GPS Coordinates (approx):</strong> 16.3960, 120.5783</p>
+                    <p>You can paste these coordinates into Google Maps for directions.</p>
                 </div>
             </div>
         </div>
@@ -207,7 +187,7 @@
             });
         });
 
-        // Search in all tabs
+        // Search functions
         document.getElementById('search-accepted').addEventListener('input', function() {
             const query = this.value.toLowerCase();
             document.querySelectorAll('#accepted .card').forEach(card => {
@@ -220,12 +200,7 @@
                 card.classList.toggle('hidden', !card.textContent.toLowerCase().includes(query));
             });
         });
-        document.getElementById('search-location').addEventListener('input', function() {
-            const query = this.value.toLowerCase();
-            document.querySelectorAll('#locations .card').forEach(card => {
-                card.classList.toggle('hidden', !card.textContent.toLowerCase().includes(query));
-            });
-        });
+        // Search disabled for single location (optional)
     </script>
 </body>
 </html>
