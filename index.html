@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Baguio City Hazardous Waste Storage Facility</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
     <style>
         body { font-family: 'Segoe UI', Arial, sans-serif; margin: 0; padding: 0; background-color: #f8f9fa; color: #333; line-height: 1.6; }
         header {
@@ -35,8 +36,7 @@
         .not-accepted { border-left: 6px solid #ffc107; opacity: 0.95; }
         .important-note { background: #d4edda; color: #155724; padding: 20px; border-radius: 10px; margin: 25px 0; text-align: center; font-weight: bold; font-size: 1.1em; border: 2px solid #c3e6cb; }
         .warning-note { background: #fff3cd; color: #856404; padding: 20px; border-radius: 10px; margin: 25px 0; text-align: center; font-weight: bold; }
-        .hidden { display: none; }
-        img.card-img { width: 100%; height: auto; border-radius: 8px; margin-top: 15px; }
+        #map { height: 500px; border-radius: 12px; margin: 30px 0; box-shadow: 0 6px 12px rgba(0,0,0,0.1); }
         footer { text-align: center; padding: 30px; background: #333; color: white; margin-top: 50px; font-size: 1.1em; }
         @media (max-width: 768px) { 
             .tab-btn { flex-basis: 100%; font-size: 1.1em; } 
@@ -61,7 +61,7 @@
         <h2 style="text-align:center; color:#228B22;">Welcome</h2>
         <div class="important-note">
             Current Acceptance (December 12, 2025): ONLY Used Oil • Busted Fluorescent Lamps (BFL) • E-Waste • Expired Medicines<br><br>
-            Bring to the drop-off point below or scheduled collection events.
+            Bring to the drop-off point shown below.
         </div>
         <p style="text-align:center; font-size:1.2em; max-width:900px; margin:30px auto;">
             Managed by the City Environment and Parks Management Office (CEPMO) under Atty. Rhenan G. Diwas (Head) and Engr. Wilbur S. Suanding (PCO & WHWMD Head).
@@ -136,20 +136,19 @@
             </div>
         </div>
 
-        <!-- Drop-Off Point Tab (single point, no map) -->
+        <!-- Drop-Off Point Tab with Map (one pin) -->
         <div id="locations" class="tab-content">
-            <p style="text-align:center; font-size:1.1em; max-width:900px; margin:0 auto 30px;">
-                Main permanent drop-off point for the accepted items. Contact CEPMO for schedule and requirements.
+            <p style="text-align:center; font-size:1.1em;">
+                Main permanent drop-off point. Click the pin for details.
             </p>
+            <div id="map"></div>
             <div class="grid">
                 <div class="card">
                     <h3>Bakakeng Central Drop-Off Point</h3>
                     <p><strong>Address:</strong> Bakakeng Central/Sur Materials Recovery Facility (MRF), Baguio City</p>
                     <p><strong>Accepted Items:</strong> Used Oil, Busted Fluorescent Lamps (BFL), E-Waste, Expired Medicines</p>
                     <p><strong>Hours/Info:</strong> Contact CEPMO for current schedule</p>
-                    <p><strong>Contact:</strong> City Environment and Parks Management Office (CEPMO)</p>
-                    <p><strong>GPS Coordinates (approx):</strong> 16.3960, 120.5783</p>
-                    <p>You can paste these coordinates into Google Maps for directions.</p>
+                    <p><strong>GPS Coordinates:</strong> 16.3960, 120.5783</p>
                 </div>
             </div>
         </div>
@@ -161,19 +160,20 @@
         Visit baguio.gov.ph or contact CEPMO • Keep Baguio clean and green!</p>
     </footer>
 
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
     <script>
-        // Tab switching
         function openTab(tabName) {
             document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'));
             document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
             document.getElementById(tabName).classList.add('active');
             document.querySelector(`.tab-btn[data-tab="${tabName}"]`).classList.add('active');
+            if (tabName === 'locations' && !window.mapInitialized) {
+                initializeMap();
+                window.mapInitialized = true;
+            }
         }
-        document.querySelectorAll('.tab-btn').forEach(btn => {
-            btn.addEventListener('click', () => openTab(btn.dataset.tab));
-        });
+        document.querySelectorAll('.tab-btn').forEach(btn => btn.addEventListener('click', () => openTab(btn.dataset.tab)));
 
-        // Nav links
         document.querySelectorAll('nav a').forEach(link => {
             link.addEventListener('click', function(e) {
                 const href = this.getAttribute('href');
@@ -187,7 +187,7 @@
             });
         });
 
-        // Search functions
+        // Search
         document.getElementById('search-accepted').addEventListener('input', function() {
             const query = this.value.toLowerCase();
             document.querySelectorAll('#accepted .card').forEach(card => {
@@ -200,7 +200,22 @@
                 card.classList.toggle('hidden', !card.textContent.toLowerCase().includes(query));
             });
         });
-        // No search needed for single drop-off point
+
+        // Map with one pin
+        function initializeMap() {
+            const map = L.map('map').setView([16.3960, 120.5783], 15); // Centered on Bakakeng with good zoom
+            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                attribution: '&copy; OpenStreetMap contributors'
+            }).addTo(map);
+
+            const marker = L.marker([16.3960, 120.5783]).addTo(map);
+            marker.bindPopup(`
+                <b>Bakakeng Central Drop-Off Point</b><br>
+                Bakakeng Central/Sur MRF, Baguio City<br>
+                Accepts: Used Oil, BFL, E-Waste, Expired Medicines<br>
+                Contact CEPMO for schedule
+            `).openPopup(); // Popup opens automatically
+        }
     </script>
 </body>
 </html>
