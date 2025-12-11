@@ -84,25 +84,21 @@
                     <h3>Used Oil</h3>
                     <p><strong>Why hazardous?</strong> Pollutes water and soil severely.</p>
                     <p><strong>How to dispose:</strong> Pour into sealed containers; drop at facility/events.</p>
-                    <!-- <img src="images/used-oil.jpg" alt="Used Oil" class="card-img"> -->
                 </div>
                 <div class="card accepted">
                     <h3>Busted Fluorescent Lamps (BFL)</h3>
                     <p><strong>Why hazardous?</strong> Contain mercury.</p>
                     <p><strong>How to dispose:</strong> Wrap carefully; avoid further breakage.</p>
-                    <!-- <img src="images/bfl.jpg" alt="BFL" class="card-img"> -->
                 </div>
                 <div class="card accepted">
                     <h3>E-Waste</h3>
                     <p><strong>Why hazardous?</strong> Contains lead, mercury, etc.</p>
                     <p><strong>How to dispose:</strong> Drop intact items at Bakakeng or events.</p>
-                    <!-- <img src="images/ewaste.jpg" alt="E-Waste" class="card-img"> -->
                 </div>
                 <div class="card accepted">
                     <h3>Expired Medicines</h3>
                     <p><strong>Why hazardous?</strong> Contaminates water if flushed.</p>
                     <p><strong>How to dispose:</strong> Bring in original packaging.</p>
-                    <!-- <img src="images/medicines.jpg" alt="Expired Medicines" class="card-img"> -->
                 </div>
             </div>
         </div>
@@ -199,17 +195,17 @@
             });
         });
 
-        // Map & locations
+        // Updated locations with precise GPS coordinates
         const locations = [
-            { name: "Bakakeng Central Permanent Drop-Off", address: "Bakakeng Central/Sur MRF, Baguio City", hours: "Contact CEPMO", notes: "Main drop-off for the 4 accepted items", lat: 16.426, lng: 120.568, planned: false },
-            { name: "Scheduled Collection Events (e.g., Malcom Square)", address: "Various (Malcom Square, barangays)", hours: "Announced events", notes: "Regular drives – check CEPMO", lat: 16.412, lng: 120.595, planned: false },
-            { name: "The4E Facility (Planned)", address: "Dontogan Area", hours: "Expected 2026+", notes: "Future expansion", lat: 16.420, lng: 120.580, planned: true },
-            { name: "CEPMO Office", address: "City Hall", hours: "Office hours", notes: "Inquiries & coordination", lat: 16.415, lng: 120.593, planned: false }
+            { name: "Bakakeng Central Permanent Drop-Off", address: "Bakakeng Central/Sur MRF, Baguio City", hours: "Contact CEPMO", notes: "Main drop-off for the 4 accepted items", lat: 16.3960, lng: 120.5783, planned: false },
+            { name: "Scheduled Collection Events (e.g., Malcom Square)", address: "Malcom Square & various barangays", hours: "Announced events", notes: "Regular drives – check CEPMO", lat: 16.4138, lng: 120.5957, planned: false },
+            { name: "The4E Facility (Planned)", address: "Dontogan Area", hours: "Expected 2026+", notes: "Future expansion", lat: 16.3818, lng: 120.5722, planned: true },
+            { name: "CEPMO Office", address: "Baguio City Hall", hours: "Office hours", notes: "Inquiries & coordination", lat: 16.4140, lng: 120.5910, planned: false }
         ];
 
         let map, markers;
         function initializeMap() {
-            map = L.map('map').setView([16.415, 120.593], 13);
+            map = L.map('map').setView([16.415, 120.593], 13); // Centered on Baguio
             L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', { attribution: '&copy; OpenStreetMap contributors' }).addTo(map);
             markers = L.markerClusterGroup();
             locations.forEach(loc => {
