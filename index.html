@@ -7,220 +7,24 @@
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
     <style>
         body { font-family: 'Segoe UI', Arial, sans-serif; margin: 0; padding: 0; background-color: #f8f9fa; color: #333; line-height: 1.6; }
-        header { background-color: #228B22; color: white; padding: 40px 20px; text-align: center; }
-        header h1 { margin: 0; font-size: 2.5em; }
-        header p { margin: 10px 0 0; opacity: 0.9; font-size: 1.2em; }
-        nav { background-color: #006400; padding: 10px; position: sticky; top: 0; z-index: 100; }
-        nav a { color: white; text-decoration: none; padding: 12px 20px; display: inline-block; font-weight: bold; }
+        header { background-color: #228B22; color: white; padding: 50px 20px; text-align: center; }
+        header h1 { margin: 0; font-size: 2.8em; }
+        header p { margin: 10px 0 0; opacity: 0.9; font-size: 1.3em; }
+        nav { background-color: #006400; padding: 12px; position: sticky; top: 0; z-index: 100; box-shadow: 0 2px 5px rgba(0,0,0,0.2); }
+        nav a { color: white; text-decoration: none; padding: 14px 24px; display: inline-block; font-weight: bold; font-size: 1.1em; }
         nav a:hover { background-color: #228B22; }
         .container { max-width: 1200px; margin: 0 auto; padding: 20px; }
-        .tabs { display: flex; border-bottom: 2px solid #ddd; margin-bottom: 20px; flex-wrap: wrap; }
-        .tab-btn { padding: 12px 24px; background: #eee; border: none; cursor: pointer; font-size: 1.1em; flex: 1; }
+        .tabs { display: flex; border-bottom: 3px solid #ddd; margin-bottom: 30px; flex-wrap: wrap; }
+        .tab-btn { padding: 15px 30px; background: #eee; border: none; cursor: pointer; font-size: 1.2em; flex: 1; transition: background 0.3s; }
         .tab-btn.active { background: #228B22; color: white; }
-        .tab-content { display: none; }
+        .tab-content { display: none; animation: fadeIn 0.5s; }
         .tab-content.active { display: block; }
-        input[type="text"] { width: 100%; max-width: 600px; padding: 12px; margin: 20px auto; display: block; font-size: 16px; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box; }
-        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; }
-        .card { background: white; border-radius: 10px; padding: 20px; box-shadow: 0 4px 8px rgba(0,0,0,0.1); transition: transform 0.2s; }
-        .card:hover { transform: translateY(-5px); }
-        .card h3 { margin-top: 0; color: #228B22; }
-        .accepted { border-left: 5px solid #228B22; }
-        .not-accepted { border-left: 5px solid #ffc107; }
-        .important-note { background: #d4edda; color: #155724; padding: 15px; border-radius: 8px; margin: 20px 0; text-align: center; font-weight: bold; }
-        .warning-note { background: #fff3cd; color: #856404; padding: 15px; border-radius: 8px; margin: 20px 0; text-align: center; }
-        .hidden { display: none; }
-        #map { height: 500px; border-radius: 10px; margin-top: 20px; box-shadow: 0 4px 8px rgba(0,0,0,0.1); }
-        footer { text-align: center; padding: 20px; background: #333; color: white; margin-top: 40px; }
-        @media (max-width: 768px) { .tab-btn { flex-basis: 100%; } }
-    </style>
-</head>
-<body>
-    <header>
-        <h1>Baguio City Hazardous Waste Storage Facility</h1>
-        <p>Managed by CEPMO • Information & Disposal Guide for Household Hazardous Waste • City of Pines</p>
-    </header>
-
-    <nav>
-        <a href="#home">Home</a>
-        <a href="#database">HHW Guide</a>
-        <a href="#about">Contact & Info</a>
-    </nav>
-
-    <div class="container" id="home">
-        <h2 style="text-align:center; color:#228B22;">Welcome</h2>
-        <div class="important-note">
-            Current Facility Acceptance (December 2025): ONLY Used Oil, Busted Fluorescent Lamps (BFL), E-Waste, and Expired Medicines.<br>
-            Other household hazardous wastes are NOT accepted at the facility—store safely and contact your barangay or CEPMO for events/alternatives.
-        </div>
-        <p style="text-align:center; font-size:1.1em; max-width:800px; margin:20px auto;">
-            Managed by the City Environment and Parks Management Office (CEPMO) under Atty. Rhenan G. Diwas (Head and Managing Head) and Engr. Wilbur S. Suanding (PCO and WHWMD Head). 
-            The facility includes Bakakeng Central (operational) and the planned The4E for future expansion.
-        </p>
-
-        <div class="tabs" id="database">
-            <button class="tab-btn active" data-tab="accepted">Accepted Items</button>
-            <button class="tab-btn" data-tab="general">General HHW Information</button>
-            <button class="tab-btn" data-tab="locations">Facilities</button>
-        </div>
-
-        <!-- Accepted Items Tab -->
-        <div id="accepted" class="tab-content active">
-            <input type="text" id="search-accepted" placeholder="Search accepted items...">
-            <div class="important-note">These items can be brought to the facility or collection events.</div>
-            <div class="grid" id="accepted-grid">
-                <div class="card accepted">
-                    <h3>Used Oil</h3>
-                    <p><strong>Description:</strong> Used motor/cooking oil – pollutes water/soil.</p>
-                    <p><strong>Disposal:</strong> Sealed containers; drop at facility/events.</p>
-                </div>
-
-                <div class="card accepted">
-                    <h3>Busted Fluorescent Lamps (BFL)</h3>
-                    <p><strong>Description:</strong> Broken CFLs/tubes with mercury.</p>
-                    <p><strong>Disposal:</strong> Pack carefully; drop at facility.</p>
-                </div>
-
-                <div class="card accepted">
-                    <h3>E-Waste</h3>
-                    <p><strong>Description:</strong> Old electronics (phones, computers, appliances).</p>
-                    <p><strong>Disposal:</strong> Drop at Bakakeng or events.</p>
-                </div>
-
-                <div class="card accepted">
-                    <h3>Expired Medicines</h3>
-                    <p><strong>Description:</strong> Unused/expired drugs.</p>
-                    <p><strong>Disposal:</strong> Take-back at facility (do not flush/trash).</p>
-                </div>
-            </div>
-        </div>
-
-        <!-- General HHW Information Tab -->
-        <div id="general" class="tab-content">
-            <input type="text" id="search-general" placeholder="Search all HHW items...">
-            <div class="warning-note">
-                Common Household Hazardous Waste (HHW) in the Philippines – NOT all accepted at the facility yet.<br>
-                Store safely at home; contact barangay/CEPMO for special collections.
-            </div>
-            <div class="grid" id="general-grid">
-                <!-- Non-accepted common HHW -->
-                <div class="card not-accepted">
-                    <h3>Household Batteries</h3>
-                    <p><strong>Description:</strong> Contain heavy metals (lead, mercury).</p>
-                    <p><strong>General Advice:</strong> Store dry; await collections (not accepted at facility).</p>
-                </div>
-
-                <div class="card not-accepted">
-                    <h3>Paints & Thinners/Solvents</h3>
-                    <p><strong>Description:</strong> Contain VOCs/chemicals.</p>
-                    <p><strong>General Advice:</strong> Dry out latex if possible; store others safely for events.</p>
-                </div>
-
-                <div class="card not-accepted">
-                    <h3>Household Cleaners</h3>
-                    <p><strong>Description:</strong> Bleach, ammonia – corrosive/toxic.</p>
-                    <p><strong>General Advice:</strong> Do not pour down drains; await special collections.</p>
-                </div>
-
-                <div class="card not-accepted">
-                    <h3>Pesticides & Herbicides</h3>
-                    <p><strong>Description:</strong> Highly toxic.</p>
-                    <p><strong>General Advice:</strong> Keep sealed; contact CEPMO for proper handling.</p>
-                </div>
-
-                <div class="card not-accepted">
-                    <h3>Spray Canisters/Aerosols</h3>
-                    <p><strong>Description:</strong> Pressurized, flammable.</p>
-                    <p><strong>General Advice:</strong> Do not puncture; store for collections.</p>
-                </div>
-
-                <!-- Repeat accepted for completeness -->
-                <div class="card accepted">
-                    <h3>Used Oil / BFL / E-Waste / Expired Medicines</h3>
-                    <p>See "Accepted Items" tab for disposal details.</p>
-                </div>
-            </div>
-        </div>
-
-        <!-- Facilities Tab -->
-        <div id="locations" class="tab-content">
-            <input type="text" id="search-location" placeholder="Search facilities...">
-            <p style="text-align:center;">Contact CEPMO for schedules, requirements, and possible collections for other HHW.</p>
-            <div id="map"></div>
-            <div class="grid" id="locations-list"><!-- JS filled --></div>
-        </div>
-    </div>
-
-    <footer id="about">
-        <p>Baguio City Hazardous Waste Storage Facility • December 2025</p>
-        <p>Managed by CEPMO: Atty. Rhenan G. Diwas (Head), Engr. Wilbur S. Suanding (PCO & WHWMD Head) • baguio.gov.ph</p>
-    </footer>
-
-    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-    <script>
-        function openTab(tabName) {
-            document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'));
-            document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
-            document.getElementById(tabName).classList.add('active');
-            document.querySelector(`.tab-btn[data-tab="${tabName}"]`).classList.add('active');
-            if (tabName === 'locations' && !window.mapInitialized) { initializeMap(); window.mapInitialized = true; }
-        }
-        document.querySelectorAll('.tab-btn').forEach(btn => btn.addEventListener('click', () => openTab(btn.dataset.tab)));
-
-        document.querySelectorAll('nav a').forEach(link => {
-            link.addEventListener('click', function(e) {
-                const href = this.getAttribute('href');
-                if (href === '#database') {
-                    e.preventDefault();
-                    openTab('accepted');
-                    window.scrollTo({ top: document.querySelector('.tabs').offsetTop - 80, behavior: 'smooth' });
-                } else {
-                    document.querySelector(href).scrollIntoView({ behavior: 'smooth' });
-                }
-            });
-        });
-
-        // Searches
-        ['accepted', 'general'].forEach(id => {
-            document.getElementById(`search-${id}`).addEventListener('input', function() {
-                const query = this.value.toLowerCase();
-                document.querySelectorAll(`#${id}-grid .card`).forEach(card => {
-                    card.classList.toggle('hidden', !card.textContent.toLowerCase().includes(query));
-                });
-            });
-        });
-
-        // Locations
-        const locations = [
-            { name: "Bakakeng Central TSD Facility", address: "Bakakeng Central/Sur MRF", hours: "Contact CEPMO", notes: "Accepts the 4 items", lat: 16.426, lng: 120.568 },
-            { name: "The4E (Planned)", address: "Dontogan Area", hours: "2026+", notes: "Future expansion", lat: 16.420, lng: 120.580, planned: true },
-            { name: "CEPMO/Events", address: "City Hall/barangays", hours: "Varies", notes: "Coordination", lat: 16.415, lng: 120.593 }
-        ];
-
-        let map, markers;
-        function initializeMap() {
-            map = L.map('map').setView([16.415, 120.593], 13);
-            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', { attribution: '&copy; OpenStreetMap' }).addTo(map);
-            markers = L.markerClusterGroup();
-            locations.forEach(loc => {
-                const marker = L.marker([loc.lat, loc.lng]);
-                marker.bindPopup(`<b>${loc.name}</b><br>${loc.address}<br>${loc.hours}<br>${loc.notes}`);
-                markers.addLayer(marker);
-
-                const card = document.createElement('div');
-                card.className = 'card';
-                if (loc.planned) card.innerHTML += '<div style="background:#fff3cd;padding:10px;">Planned</div>';
-                card.innerHTML += `<h3>${loc.name}</h3><p><strong>Address:</strong> ${loc.address}</p><p><strong>Notes:</strong> ${loc.notes}</p><p>GPS: ${loc.lat.toFixed(4)}, ${loc.lng.toFixed(4)}</p>`;
-                document.getElementById('locations-list').appendChild(card);
-            });
-            map.addLayer(markers);
-        }
-
-        document.getElementById('search-location').addEventListener('input', function() {
-            const query = this.value.toLowerCase();
-            document.querySelectorAll('#locations-list .card').forEach(card => {
-                card.classList.toggle('hidden', !card.textContent.toLowerCase().includes(query));
-            });
-        });
-    </script>
-</body>
-</html>
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        input[type="text"] { width: 100%; max-width: 700px; padding: 14px; margin: 20px auto; display: block; font-size: 18px; border: 1px solid #ccc; border-radius: 8px; box-sizing: border-box; }
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 25px; }
+        .card { background: white; border-radius: 12px; padding: 25px; box-shadow: 0 6px 12px rgba(0,0,0,0.1); transition: transform 0.3s, box-shadow 0.3s; }
+        .card:hover { transform: translateY(-8px); box-shadow: 0 12px 20px rgba(0,0,0,0.15); }
+        .card h3 { margin-top: 0; color: #228B22; font-size: 1.4em; }
+        .accepted { border-left: 6px solid #228B22; }
+        .not-accepted { border-left: 6px solid #ffc107; opacity: 0.95; }
+        .important-note { background: #d4edda; color: #155724; padding: 20px; border-radius
