@@ -40,6 +40,7 @@
         .warning-note { background: #fff3cd; color: #856404; padding: 20px; border-radius: 10px; margin: 25px 0; text-align: center; font-weight: bold; }
         #map { height: 500px; border-radius: 12px; margin: 30px 0; box-shadow: 0 6px 12px rgba(0,0,0,0.1); }
         footer { text-align: center; padding: 30px; background: #333; color: white; margin-top: 50px; font-size: 1.1em; }
+        .hidden { display: none; }
         @media (max-width: 768px) { 
             .tab-btn { flex-basis: 100%; font-size: 1.1em; } 
             header { padding: 80px 20px; } 
@@ -62,7 +63,7 @@
     <div class="container" id="home">
         <h2 style="text-align:center; color:#228B22;">Welcome</h2>
         <div class="important-note">
-            Current Acceptance (December 12, 2025): ONLY Used Oil • Busted Fluorescent Lamps (BFL) • E-Waste • Expired Medicines<br><br>
+            Current Acceptance (December 13, 2025): ONLY Used Oil • Busted Fluorescent Lamps (BFL) • E-Waste • Expired Medicines<br><br>
             Bring to the drop-off points shown below.
         </div>
         <p style="text-align:center; font-size:1.2em; max-width:900px; margin:30px auto;">
@@ -79,7 +80,7 @@
         <div id="accepted" class="tab-content active">
             <input type="text" id="search-accepted" placeholder="Search accepted items...">
             <div class="important-note">Free drop-off for residents!</div>
-            <div class="grid">
+            <div class="grid" id="accepted-grid">
                 <div class="card accepted">
                     <h3>Used Oil</h3>
                     <p><strong>Why hazardous?</strong> Pollutes water and soil severely.</p>
@@ -109,7 +110,7 @@
             <div class="warning-note">
                 Common household hazardous waste – NOT all accepted yet. Store safely!
             </div>
-            <div class="grid">
+            <div class="grid" id="general-grid">
                 <div class="card not-accepted">
                     <h3>Batteries</h3>
                     <p><strong>Why hazardous?</strong> Heavy metals leach into environment.</p>
@@ -140,6 +141,7 @@
 
         <!-- Drop-Off Points Tab with Map -->
         <div id="locations" class="tab-content">
+            <input type="text" id="search-location" placeholder="Search drop-off points...">
             <p style="text-align:center; font-size:1.1em;">
                 Click pins for details. Contact CEPMO for current schedules and event locations.
             </p>
@@ -149,10 +151,10 @@
     </div>
 
     <footer id="about">
-        <p>Baguio City Hazardous Waste Storage Facility • Updated: December 12, 2025</p>
+        <p>Baguio City Hazardous Waste Storage Facility • Updated: December 13, 2025</p>
         <p>Managed by CEPMO • Atty. Rhenan G. Diwas (Head) • Engr. Wilbur S. Suanding (PCO & WHWMD Head)<br>
         Visit baguio.gov.ph or contact CEPMO • Keep Baguio clean and green!</p>
-        <p style="font-size:0.9em; margin-top:10px;">© 2025 Uncle Ronnie • All rights reserved. Powered by pancit canton.<br>
+        <p style="font-size:0.9em; margin-top:10px;">© 2025 Uncle Ronnie • All rights reserved.<br>
         (Unauthorized disposal of hazardous waste will result in being haunted by pine trees forever.)</p>
     </footer>
 
@@ -184,16 +186,24 @@
             });
         });
 
-        // Search
+        // Fixed search functions – now targets correct grid IDs
         document.getElementById('search-accepted').addEventListener('input', function() {
             const query = this.value.toLowerCase();
-            document.querySelectorAll('#accepted .card').forEach(card => {
+            document.querySelectorAll('#accepted-grid .card').forEach(card => {
                 card.classList.toggle('hidden', !card.textContent.toLowerCase().includes(query));
             });
         });
+
         document.getElementById('search-general').addEventListener('input', function() {
             const query = this.value.toLowerCase();
-            document.querySelectorAll('#general .card').forEach(card => {
+            document.querySelectorAll('#general-grid .card').forEach(card => {
+                card.classList.toggle('hidden', !card.textContent.toLowerCase().includes(query));
+            });
+        });
+
+        document.getElementById('search-location').addEventListener('input', function() {
+            const query = this.value.toLowerCase();
+            document.querySelectorAll('#locations-list .card').forEach(card => {
                 card.classList.toggle('hidden', !card.textContent.toLowerCase().includes(query));
             });
         });
