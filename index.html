@@ -149,12 +149,12 @@
             margin-top: 20px;
         }
         .hidden { display: none; }
-        /* Back to Top Button */
+        /* Back to Top Button - Semi-transparent, becomes opaque on hover */
         #back-to-top {
             position: fixed;
             bottom: 30px;
             right: 30px;
-            background: #228B22;
+            background: rgba(34, 139, 34, 0.7); /* Semi-transparent green */
             color: white;
             width: 50px;
             height: 50px;
@@ -175,7 +175,8 @@
             visibility: visible;
         }
         #back-to-top:hover {
-            background: #006400;
+            background: #228B22; /* Fully opaque on hover */
+            transform: scale(1.1);
         }
         @media (max-width: 768px) {
             header {
