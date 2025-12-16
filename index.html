@@ -148,38 +148,39 @@
         }
         .hidden { display: none; }
 
-        /* Back to Top Button - Bottom Left, above chat bubble */
+        /* Crisp Chatbox - Bottom Left */
+        #crisp-chatbox {
+            bottom: 20px !important;
+            left: 20px !important;
+            right: auto !important;
+            z-index: 1000 !important;
+        }
+
+        /* Back-to-Top Button - Same height as chat, placed next to it */
         #back-to-top {
             position: fixed;
-            bottom: 100px; /* Above the chat bubble */
-            left: 20px;
-            background: rgba(34, 139, 34, 0.8);
-            color: white;
+            bottom: 20px;           /* Exactly same level as Crisp chat */
+            left: 90px;             /* 20px left margin + ~60px chat bubble width + 10px gap */
             width: 50px;
             height: 50px;
+            background: rgba(34, 139, 34, 0.85);
+            color: white;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
             font-size: 1.8em;
             cursor: pointer;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.3);
-            z-index: 1002; /* Higher than Crisp */
+            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+            z-index: 1002;          /* Above Crisp */
             transition: all 0.3s ease;
         }
         #back-to-top:hover {
             background: #228B22;
-            transform: scale(1.1);
+            transform: scale(1.12);
         }
 
-        /* Crisp Chatbox - Bottom Left */
-        #crisp-chatbox {
-            bottom: 20px !important;
-            left: 20px !important;
-            right: auto !important;
-            z-index: 1001 !important;
-        }
-
+        /* Mobile: Stack vertically to avoid squeezing */
         @media (max-width: 768px) {
             header {
                 padding: 30px 20px 40px;
@@ -187,11 +188,6 @@
             header h1 { font-size: 2.5em; }
             .logo-container { gap: 20px; margin-bottom: 20px; }
             .logo-container img { height: 60px; padding: 10px; }
-            nav {
-                width: 100%;
-                flex-wrap: wrap;
-                justify-content: center;
-            }
             nav a {
                 flex-basis: 33.33%;
                 padding: 12px 4px;
@@ -210,17 +206,16 @@
             .footer-copyright { padding-top: 15px; margin-top: 15px; }
             .contact-item .label { display: block; margin-bottom: 4px; }
 
-            /* Mobile adjustments */
+            #crisp-chatbox {
+                bottom: 20px !important;
+                left: 15px !important;
+            }
             #back-to-top {
-                bottom: 90px; /* More space above chat on mobile */
+                bottom: 85px;       /* Above the chat bubble */
                 left: 15px;
                 width: 48px;
                 height: 48px;
                 font-size: 1.6em;
-            }
-            #crisp-chatbox {
-                bottom: 15px !important;
-                left: 15px !important;
             }
         }
     </style>
@@ -243,7 +238,6 @@
         <a href="index.html#footer">Contact Info</a>
     </nav>
     <div class="container">
-        <!-- [All your existing content remains unchanged] -->
         <h2 style="text-align:center; color:#228B22;">Welcome</h2>
         <div class="important-note">
             Current Acceptance (December 16, 2025): ONLY Used Oil • Busted Fluorescent Lamps (BFL) • E-Waste • Expired Medicines<br><br>
@@ -258,12 +252,12 @@
             <button class="tab-btn" data-tab="general">HHW Guide</button>
             <button class="tab-btn" data-tab="locations">Drop-Off Points</button>
         </div>
+
         <!-- Accepted Items Tab -->
         <div id="accepted" class="tab-content active">
             <input type="text" id="search-accepted" placeholder="Search accepted items...">
             <div class="important-note">Low-Cost Drop-Off Service – Only ₱10 per month per household!</div>
             <div class="grid" id="accepted-grid">
-                <!-- Your cards here (unchanged) -->
                 <div class="card accepted">
                     <h3>Used Oil</h3>
                     <p><strong>Why hazardous?</strong> Pollutes water and soil severely.</p>
@@ -286,9 +280,9 @@
                 </div>
             </div>
         </div>
+
         <!-- HHW Guide Tab -->
         <div id="general" class="tab-content">
-            <!-- Content unchanged -->
             <h2 style="text-align:center; color:#228B22; margin-top: 0; padding-top: 20px;">Household Hazardous Waste Guide</h2>
             <p style="text-align:center; margin-bottom: 25px;">These are common household items that are hazardous in the Philippines. Only 4 are accepted at the facility right now. The rest must be stored safely at home until future collections.</p>
             <input type="text" id="search-general" placeholder="Search all common household hazardous waste...">
@@ -296,9 +290,34 @@
                 Not all items accepted yet. Store safely!
             </div>
             <div class="grid" id="general-grid">
-                <!-- Your not-accepted cards here (unchanged) -->
+                <div class="card not-accepted">
+                    <h3>Batteries</h3>
+                    <p><strong>Why hazardous?</strong> Heavy metals leach into environment.</p>
+                    <p><strong>Safe storage:</strong> Dry container; await collections.</p>
+                </div>
+                <div class="card not-accepted">
+                    <h3>Paints, Thinners & Solvents</h3>
+                    <p><strong>Why hazardous?</strong> Flammable/toxic VOCs.</p>
+                    <p><strong>Safe storage:</strong> Tight lids; ventilated area.</p>
+                </div>
+                <div class="card not-accepted">
+                    <h3>Household Cleaners</h3>
+                    <p><strong>Why hazardous?</strong> Corrosive chemicals.</p>
+                    <p><strong>Safe storage:</strong> Original containers; child-safe.</p>
+                </div>
+                <div class="card not-accepted">
+                    <h3>Pesticides & Herbicides</h3>
+                    <p><strong>Why hazardous?</strong> Highly toxic.</p>
+                    <p><strong>Safe storage:</strong> Sealed; locked cabinet.</p>
+                </div>
+                <div class="card not-accepted">
+                    <h3>Aerosol Cans</h3>
+                    <p><strong>Why hazardous?</strong> Pressurized/flammable.</p>
+                    <p><strong>Safe storage:</strong> Do not puncture; cool place.</p>
+                </div>
             </div>
         </div>
+
         <!-- Drop-Off Points Tab with Map -->
         <div id="locations" class="tab-content">
             <input type="text" id="search-location" placeholder="Search drop-off points...">
@@ -309,8 +328,8 @@
             <div class="grid" id="locations-list"></div>
         </div>
     </div>
+
     <footer id="footer">
-        <!-- Footer content unchanged -->
         <div class="footer-contact">
             <div>
                 <strong>Office Address:</strong><br>
@@ -335,7 +354,7 @@
         </div>
     </footer>
 
-    <!-- Back to Top Button (now bottom-left, above chat) -->
+    <!-- Back to Top Button (same level as chat on desktop) -->
     <div id="back-to-top" onclick="window.scrollTo({top: 0, behavior: 'smooth'})">
         <i class="fas fa-arrow-up"></i>
     </div>
@@ -346,7 +365,6 @@
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
     <script src="https://unpkg.com/leaflet.markercluster@1.4.1/dist/leaflet.markercluster.js"></script>
     <script>
-        // Your existing JavaScript (unchanged)
         function openTab(tabName) {
             document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'));
             document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
@@ -358,8 +376,26 @@
             }
         }
         document.querySelectorAll('.tab-btn').forEach(btn => btn.addEventListener('click', () => openTab(btn.dataset.tab)));
-        // Search functions and map initialization remain the same
-        // ... (all your existing JS)
+
+        document.getElementById('search-accepted').addEventListener('input', function() {
+            const query = this.value.toLowerCase();
+            document.querySelectorAll('#accepted-grid .card').forEach(card => {
+                card.classList.toggle('hidden', !card.textContent.toLowerCase().includes(query));
+            });
+        });
+        document.getElementById('search-general').addEventListener('input', function() {
+            const query = this.value.toLowerCase();
+            document.querySelectorAll('#general-grid .card').forEach(card => {
+                card.classList.toggle('hidden', !card.textContent.toLowerCase().includes(query));
+            });
+        });
+        document.getElementById('search-location').addEventListener('input', function() {
+            const query = this.value.toLowerCase();
+            document.querySelectorAll('#locations-list .card').forEach(card => {
+                card.classList.toggle('hidden', !card.textContent.toLowerCase().includes(query));
+            });
+        });
+
         function initializeMap() {
             const map = L.map('map').setView([16.415, 120.593], 13);
             L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -387,14 +423,6 @@
             });
             map.addLayer(markers);
         }
-        // Search listeners (unchanged)
-        document.getElementById('search-accepted')?.addEventListener('input', function() {
-            const query = this.value.toLowerCase();
-            document.querySelectorAll('#accepted-grid .card').forEach(card => {
-                card.classList.toggle('hidden', !card.textContent.toLowerCase().includes(query));
-            });
-        });
-        // ... other search listeners
     </script>
 </body>
 </html>
