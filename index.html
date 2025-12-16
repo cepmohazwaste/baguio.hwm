@@ -186,16 +186,16 @@
             nav {
                 flex-direction: row;
                 flex-wrap: wrap;
+                justify-content: stretch;
             }
             nav a {
-                flex: 1 1 33%; /* First 3 items take ~33% each → one row */
-                min-width: 30%;
-                padding: 12px 8px;
-                font-size: 0.95em; /* Smaller font for better fit */
+                flex: 1 1 33.33%; /* First 3 items: equal 33.33% width */
+                padding: 12px 4px;
+                font-size: 0.9em; /* Smaller, centered font */
             }
             nav a:nth-child(4),
             nav a:nth-child(5) {
-                flex: 1 1 50%; /* Last 2 items take 50% each → second row */
+                flex: 1 1 50%; /* Last 2 items: equal 50% width */
             }
             .tab-btn { flex-basis: 100%; font-size: 1.1em; }
             .footer-social a { margin: 0 10px; font-size: 1.1em; }
