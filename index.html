@@ -147,7 +147,8 @@
             margin-top: 20px;
         }
         .hidden { display: none; }
-        /* Back to Top Button - Always visible, bottom-right */
+
+        /* Back to Top Button - Bottom Right */
         #back-to-top {
             position: fixed;
             bottom: 30px;
@@ -163,13 +164,14 @@
             font-size: 1.8em;
             cursor: pointer;
             box-shadow: 0 4px 8px rgba(0,0,0,0.3);
-            z-index: 1000;
+            z-index: 1001; /* Higher than Crisp */
             transition: all 0.3s ease;
         }
         #back-to-top:hover {
             background: #228B22;
             transform: scale(1.1);
         }
+
         @media (max-width: 768px) {
             header {
                 padding: 30px 20px 40px;
@@ -200,11 +202,26 @@
             .footer-copyright { padding-top: 15px; margin-top: 15px; }
             .contact-item .label { display: block; margin-bottom: 4px; }
             #back-to-top {
-                width: 45px;
-                height: 45px;
+                width: 48px;
+                height: 48px;
                 font-size: 1.6em;
                 bottom: 20px;
                 right: 20px;
+            }
+        }
+
+        /* Crisp Chatbox Positioning - Bottom Left, with spacing to avoid overlap */
+        #crisp-chatbox {
+            bottom: 20px !important;
+            right: auto !important;
+            left: 20px !important;
+            z-index: 999 !important;
+        }
+
+        @media (max-width: 768px) {
+            #crisp-chatbox {
+                bottom: 90px !important; /* Clears the back-to-top button */
+                left: 15px !important;
             }
         }
     </style>
@@ -219,7 +236,6 @@
         <h1>Baguio City Hazardous Waste Storage Facility</h1>
         <p>Managed by CEPMO • Safe & Responsible Disposal Guide • City of Pines</p>
     </header>
-
     <nav>
         <a href="index.html">Home</a>
         <a href="index.html">HHW Guide</a>
@@ -227,7 +243,6 @@
         <a href="announcements.html">Announcements</a>
         <a href="index.html#footer">Contact Info</a>
     </nav>
-
     <div class="container">
         <h2 style="text-align:center; color:#228B22;">Welcome</h2>
         <div class="important-note">
@@ -238,13 +253,11 @@
             Managed by the City Environment and Parks Management Office (CEPMO) under Atty. Rhenan G. Diwas (Head) and Engr. Wilbur S. Suanding (PCO & WHWMD Head).<br>
             <strong>Storage Facility Address:</strong> BSTP, North Sanitary Camp, Baguio City
         </p>
-
         <div class="tabs">
             <button class="tab-btn active" data-tab="accepted">Accepted Items</button>
             <button class="tab-btn" data-tab="general">HHW Guide</button>
             <button class="tab-btn" data-tab="locations">Drop-Off Points</button>
         </div>
-
         <!-- Accepted Items Tab -->
         <div id="accepted" class="tab-content active">
             <input type="text" id="search-accepted" placeholder="Search accepted items...">
@@ -272,7 +285,6 @@
                 </div>
             </div>
         </div>
-
         <!-- HHW Guide Tab -->
         <div id="general" class="tab-content">
             <h2 style="text-align:center; color:#228B22; margin-top: 0; padding-top: 20px;">Household Hazardous Waste Guide</h2>
@@ -309,7 +321,6 @@
                 </div>
             </div>
         </div>
-
         <!-- Drop-Off Points Tab with Map -->
         <div id="locations" class="tab-content">
             <input type="text" id="search-location" placeholder="Search drop-off points...">
@@ -320,7 +331,6 @@
             <div class="grid" id="locations-list"></div>
         </div>
     </div>
-
     <footer id="footer">
         <div class="footer-contact">
             <div>
@@ -336,13 +346,11 @@
                 <div class="contact-item"><i class="fas fa-envelope"></i><span class="label">Email:</span> hazwastecepmo@gmail.com</div>
             </div>
         </div>
-
         <div class="footer-social">
             <a href="https://facebook.com/cepmobaguio" target="_blank"><i class="fab fa-facebook-f"></i>Facebook</a>
             <a href="https://instagram.com/cepmobaguio" target="_blank"><i class="fab fa-instagram"></i>Instagram</a>
             <a href="https://twitter.com/cepmobaguio" target="_blank"><i class="fab fa-x-twitter"></i>X (Twitter)</a>
         </div>
-
         <div class="footer-copyright">
             © 2025 CEPMO HWMS • All rights reserved.
         </div>
@@ -355,21 +363,6 @@
 
     <!-- Crisp Chat Script -->
     <script type="text/javascript">window.$crisp=[];window.CRISP_WEBSITE_ID="5a71dc8c-0080-4374-8e55-960b01efcfa0";(function(){d=document;s=d.createElement("script");s.src="https://client.crisp.chat/l.js";s.async=1;d.getElementsByTagName("head")[0].appendChild(s);})();</script>
-
-    <!-- Custom CSS to move Crisp chat bubble to bottom-left -->
-    <style>
-        #crisp-chatbox {
-            bottom: 20px !important;
-            right: auto !important;
-            left: 20px !important;
-        }
-        @media (max-width: 768px) {
-            #crisp-chatbox {
-                bottom: 80px !important; /* Avoid overlap with back-to-top on mobile */
-                left: 10px !important;
-            }
-        }
-    </style>
 
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
     <script src="https://unpkg.com/leaflet.markercluster@1.4.1/dist/leaflet.markercluster.js"></script>
@@ -385,34 +378,29 @@
             }
         }
         document.querySelectorAll('.tab-btn').forEach(btn => btn.addEventListener('click', () => openTab(btn.dataset.tab)));
-
         document.getElementById('search-accepted').addEventListener('input', function() {
             const query = this.value.toLowerCase();
             document.querySelectorAll('#accepted-grid .card').forEach(card => {
                 card.classList.toggle('hidden', !card.textContent.toLowerCase().includes(query));
             });
         });
-
         document.getElementById('search-general').addEventListener('input', function() {
             const query = this.value.toLowerCase();
             document.querySelectorAll('#general-grid .card').forEach(card => {
                 card.classList.toggle('hidden', !card.textContent.toLowerCase().includes(query));
             });
         });
-
         document.getElementById('search-location').addEventListener('input', function() {
             const query = this.value.toLowerCase();
             document.querySelectorAll('#locations-list .card').forEach(card => {
                 card.classList.toggle('hidden', !card.textContent.toLowerCase().includes(query));
             });
         });
-
         function initializeMap() {
             const map = L.map('map').setView([16.415, 120.593], 13);
             L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
                 attribution: '&copy; OpenStreetMap contributors'
             }).addTo(map);
-
             const markers = L.markerClusterGroup();
             const locations = [
                 { name: "Bakakeng Central MRF-TSD Facility", address: "BSTP, North Sanitary Camp, Baguio City", hours: "8AM-5PM", notes: "Main permanent drop-off for WEEE", lat: 16.3960, lng: 120.5783 },
@@ -420,12 +408,10 @@
                 { name: "Baguio Hazardous Waste Storage (Planned)", address: "Dontogan Area", hours: "Expected 2026+", notes: "Future expansion", lat: 16.3818, lng: 120.5722 },
                 { name: "CEPMO Coordination Office", address: "Baguio City Hall", hours: "Office hours", notes: "Inquiries & schedules", lat: 16.4140, lng: 120.5910 }
             ];
-
             locations.forEach(loc => {
                 const marker = L.marker([loc.lat, loc.lng]);
                 marker.bindPopup(`<b>${loc.name}</b><br>${loc.address}<br><i>${loc.hours}</i><br>${loc.notes}`);
                 markers.addLayer(marker);
-
                 const card = document.createElement('div');
                 card.className = 'card';
                 card.innerHTML = `<h3>${loc.name}</h3>
