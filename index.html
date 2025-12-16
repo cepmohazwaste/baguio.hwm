@@ -58,15 +58,13 @@
         nav a {
             color: white;
             text-decoration: none;
-            padding: 16px 20px;
+            padding: 14px 16px;
             display: flex;
             align-items: center;
             justify-content: center;
             text-align: center;
             font-weight: bold;
             font-size: 1.1em;
-            flex: 1 1 100px;
-            min-width: 100px;
         }
         nav a:hover { background-color: #228B22; }
         .container { max-width: 1200px; margin: 0 auto; padding: 20px; }
@@ -185,7 +183,20 @@
             header h1 { font-size: 2.5em; }
             .logo-container { gap: 20px; margin-bottom: 20px; }
             .logo-container img { height: 60px; padding: 10px; }
-            nav a { padding: 16px 10px; font-size: 1em; flex: 1 1 100%; }
+            nav {
+                flex-direction: row;
+                flex-wrap: wrap;
+            }
+            nav a {
+                flex: 1 1 33%; /* First 3 items take ~33% each → one row */
+                min-width: 30%;
+                padding: 12px 8px;
+                font-size: 0.95em; /* Smaller font for better fit */
+            }
+            nav a:nth-child(4),
+            nav a:nth-child(5) {
+                flex: 1 1 50%; /* Last 2 items take 50% each → second row */
+            }
             .tab-btn { flex-basis: 100%; font-size: 1.1em; }
             .footer-social a { margin: 0 10px; font-size: 1.1em; }
             footer { padding: 20px; }
@@ -225,7 +236,7 @@
     <div class="container">
         <h2 style="text-align:center; color:#228B22;">Welcome</h2>
         <div class="important-note">
-            Current Acceptance (December 15, 2025): ONLY Used Oil • Busted Fluorescent Lamps (BFL) • E-Waste • Expired Medicines<br><br>
+            Current Acceptance (December 16, 2025): ONLY Used Oil • Busted Fluorescent Lamps (BFL) • E-Waste • Expired Medicines<br><br>
             Low-Cost Drop-Off Service – Only ₱10 per month per household!
         </div>
         <p style="text-align:center; font-size:1.2em; max-width:900px; margin:30px auto;">
