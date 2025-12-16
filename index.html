@@ -184,18 +184,19 @@
             .logo-container { gap: 20px; margin-bottom: 20px; }
             .logo-container img { height: 60px; padding: 10px; }
             nav {
-                flex-direction: row;
+                width: 100%;
                 flex-wrap: wrap;
-                justify-content: stretch;
+                justify-content: center;
             }
             nav a {
-                flex: 1 1 33.33%; /* First 3 items: equal 33.33% width */
+                flex-basis: 33.33%;
                 padding: 12px 4px;
-                font-size: 0.9em; /* Smaller, centered font */
+                font-size: 0.85em;
+                box-sizing: border-box;
             }
             nav a:nth-child(4),
             nav a:nth-child(5) {
-                flex: 1 1 50%; /* Last 2 items: equal 50% width */
+                flex-basis: 50%;
             }
             .tab-btn { flex-basis: 100%; font-size: 1.1em; }
             .footer-social a { margin: 0 10px; font-size: 1.1em; }
