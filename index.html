@@ -85,6 +85,35 @@
         .not-accepted { border-left: 6px solid #ffc107; opacity: 0.95; }
         .important-note { background: #d4edda; color: #155724; padding: 20px; border-radius: 10px; margin: 25px 0; text-align: center; font-weight: bold; font-size: 1.1em; border: 2px solid #c3e6cb; }
         .warning-note { background: #fff3cd; color: #856404; padding: 20px; border-radius: 10px; margin: 25px 0; text-align: center; font-weight: bold; }
+
+        /* New professional Download Ordinance button */
+        .download-ordinance {
+            text-align: center;
+            margin: 40px 0;
+        }
+        .download-ordinance a {
+            background: #228B22;
+            color: white;
+            padding: 12px 28px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 1.1em;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+            transition: all 0.3s ease;
+        }
+        .download-ordinance a:hover {
+            background: #006400;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(0,0,0,0.2);
+        }
+        .download-ordinance i {
+            font-size: 1.3em;
+        }
+
         #map { height: 500px; border-radius: 12px; margin: 30px 0; box-shadow: 0 6px 12px rgba(0,0,0,0.1); }
         footer {
             background: #333;
@@ -193,6 +222,7 @@
             .footer-copyright { padding-top: 15px; margin-top: 15px; }
             .contact-item .label { display: block; margin-bottom: 4px; }
             #back-to-top { width: 45px; height: 45px; font-size: 1.6em; bottom: 20px; left: 20px; right: auto; }
+            .download-ordinance a { padding: 12px 20px; font-size: 1em; }
         }
     </style>
 </head>
@@ -216,6 +246,14 @@
     </nav>
     <div class="container">
         <h2 style="text-align:center; color:#228B22;">Welcome</h2>
+
+        <!-- Professional Download Ordinance Button -->
+        <div class="download-ordinance">
+            <a href="docs/Baguio_Hazardous_Waste_Ordinance_Draft.pdf" download>
+                <i class="fas fa-file-pdf"></i> Download Draft Ordinance (PDF)
+            </a>
+        </div>
+
         <div class="important-note">
             Current Acceptance (December 16, 2025): ONLY Used Oil • Busted Fluorescent Lamps (BFL) • E-Waste • Expired Medicines<br><br>
             Low-Cost Drop-Off Service – Only ₱10 per month per household!
