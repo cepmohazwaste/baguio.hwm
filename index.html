@@ -9,7 +9,6 @@
     <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.4.1/dist/MarkerCluster.Default.css" />
     <link rel="icon" type="image/x-icon" href="logo.ico">
     <link rel="shortcut icon" type="image/x-icon" href="logo.ico">
-    <!-- Font Awesome for icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css">
     <style>
         body { font-family: 'Segoe UI', Arial, sans-serif; margin: 0; padding: 0; background-color: #f8f9fa; color: #333; line-height: 1.6; }
@@ -150,7 +149,6 @@
             margin-top: 20px;
         }
         .hidden { display: none; }
-        /* Back to Top Button - on the LEFT */
         #back-to-top {
             position: fixed;
             bottom: 30px;
@@ -181,44 +179,20 @@
             transform: scale(1.1);
         }
         html { scroll-behavior: smooth; }
-
-        /* Mobile adjustments - matching ordinance.html */
         @media (max-width: 768px) {
-            header {
-                padding: 30px 20px 40px;
-            }
+            header { padding: 30px 20px 40px; }
             header h1 { font-size: 2.5em; }
             .logo-container { gap: 20px; margin-bottom: 20px; }
             .logo-container img { height: 60px; padding: 10px; }
-            /* First row: 3 items (Home, HHW Guide, Activities) – each ~33% */
-            nav a:nth-child(-n+3) {
-                flex-basis: 33.33%;
-                padding: 12px 4px;
-                font-size: 0.85em;
-                box-sizing: border-box;
-            }
-            /* Second row: 3 items (Announcements, Ordinance, Contact Info) – each ~33% */
-            nav a:nth-child(n+4) {
-                flex-basis: 33.33%;
-                padding: 12px 4px;
-                font-size: 0.85em;
-                box-sizing: border-box;
-            }
+            nav a:nth-child(-n+3) { flex-basis: 33.33%; padding: 12px 4px; font-size: 0.85em; box-sizing: border-box; }
+            nav a:nth-child(n+4) { flex-basis: 33.33%; padding: 12px 4px; font-size: 0.85em; box-sizing: border-box; }
             .tab-btn { flex-basis: 100%; font-size: 1.1em; }
-            .footer-social a { margin: 0 10px; font-size: 1.1em; }
             footer { padding: 20px; }
             .footer-contact { gap: 15px; }
             .footer-contact div { line-height: 1.5; font-size: 0.95em; }
             .footer-copyright { padding-top: 15px; margin-top: 15px; }
             .contact-item .label { display: block; margin-bottom: 4px; }
-            #back-to-top {
-                width: 45px;
-                height: 45px;
-                font-size: 1.6em;
-                bottom: 20px;
-                left: 20px;
-                right: auto;
-            }
+            #back-to-top { width: 45px; height: 45px; font-size: 1.6em; bottom: 20px; left: 20px; right: auto; }
         }
     </style>
 </head>
@@ -255,7 +229,6 @@
             <button class="tab-btn" data-tab="general">HHW Guide</button>
             <button class="tab-btn" data-tab="locations">Drop-Off Points</button>
         </div>
-        <!-- Accepted Items Tab -->
         <div id="accepted" class="tab-content active">
             <input type="text" id="search-accepted" placeholder="Search accepted items...">
             <div class="important-note">Low-Cost Drop-Off Service – Only ₱10 per month per household!</div>
@@ -282,7 +255,6 @@
                 </div>
             </div>
         </div>
-        <!-- HHW Guide Tab -->
         <div id="general" class="tab-content">
             <h2 style="text-align:center; color:#228B22; margin-top: 0; padding-top: 20px;">Household Hazardous Waste Guide</h2>
             <p style="text-align:center; margin-bottom: 25px;">These are common household items that are hazardous in the Philippines. Only 4 are accepted at the facility right now. The rest must be stored safely at home until future collections.</p>
@@ -318,7 +290,6 @@
                 </div>
             </div>
         </div>
-        <!-- Drop-Off Points Tab with Map -->
         <div id="locations" class="tab-content">
             <input type="text" id="search-location" placeholder="Search drop-off points...">
             <p style="text-align:center; font-size:1.1em;">
@@ -352,14 +323,12 @@
             © 2025 CEPMO HWMS • All rights reserved.
         </div>
     </footer>
-    <!-- Back to Top Button (now on the left) -->
     <div id="back-to-top" onclick="window.scrollTo({top: 0, behavior: 'smooth'})">
         <i class="fas fa-arrow-up"></i>
     </div>
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
     <script src="https://unpkg.com/leaflet.markercluster@1.4.1/dist/leaflet.markercluster.js"></script>
     <script>
-        // Show/hide back to top button on scroll
         window.addEventListener('scroll', function() {
             const btn = document.getElementById('back-to-top');
             if (window.scrollY > 300) {
@@ -404,38 +373,39 @@
             }).addTo(map);
             const markers = L.markerClusterGroup();
             const locations = [
-  {'name': 'UC', 'address': 'UC', 'lat': 16.40875, 'lng': 120.5978032, 'hours': 'Contact for hours', 'notes': 'Event or office'},
-  {'name': 'SLU', 'address': 'SLU', 'lat': 16.4190050326943, 'lng': 120.597122531018, 'hours': 'Contact for hours', 'notes': 'Event or office'},
-  {'name': 'UP Baguio', 'address': 'UP Baguio', 'lat': 16.4052455480428, 'lng': 120.59859172013, 'hours': 'Contact for hours', 'notes': 'Event or office'},
-  {'name': 'TSD Facility', 'address': 'TSD Facility', 'lat': 16.3976341545395, 'lng': 120.580366914724, 'hours': 'Contact for hours', 'notes': 'Event or office'},
-  {'name': 'Cabinet Hill-T. Camp BH', 'address': 'Cabinet Hill-T. Camp BH', 'lat': 16.410929, 'lng': 120.603586, 'hours': 'Contact for hours', 'notes': 'Drop-off point'},
-  {'name': 'WHWMD Office', 'address': 'WHWMD Office', 'lat': 16.4302041440675, 'lng': 120.597354935053, 'hours': 'Contact for hours', 'notes': 'Event or office'},
-  {'name': 'Dontogan Barangay Hall', 'address': 'Dontogan Barangay Hall', 'lat': 16.3772491885625, 'lng': 120.568490699825, 'hours': 'Contact for hours', 'notes': 'Event or office'},
-  {'name': 'Bayan Park', 'address': 'Bayan Park', 'lat': 16.4270698349749, 'lng': 120.606785901651, 'hours': 'Contact for hours', 'notes': 'Event or office'},
-  {'name': 'Kabayanihan BH', 'address': 'Kabayanihan BH', 'lat': 16.4147135149585, 'lng': 120.596803919389, 'hours': 'Contact for hours', 'notes': 'Drop-off point'},
-  {'name': 'Mines View Park BH', 'address': 'Mines View Park BH', 'lat': 16.4198227259098, 'lng': 120.62699535755, 'hours': 'Contact for hours', 'notes': 'Drop-off point'},
-  {'name': 'St. Joseph BH', 'address': 'St. Joseph BH', 'lat': 16.4170215078654, 'lng': 120.61108867283, 'hours': 'Contact for hours', 'notes': 'Drop-off point'},
-  {'name': 'Sto. Rosario BH', 'address': 'Sto. Rosario BH', 'lat': 16.4016340661356, 'lng': 120.587230631934, 'hours': 'Contact for hours', 'notes': 'Drop-off point'},
-  {'name': 'Camp Allen BH', 'address': 'Camp Allen BH', 'lat': 16.4157425380881, 'lng': 120.59215310431, 'hours': 'Contact for hours', 'notes': 'Drop-off point'},
-  {'name': 'Slaughter House BH', 'address': 'Slaughter House BH', 'lat': 16.420428548102, 'lng': 120.594460855139, 'hours': 'Contact for hours', 'notes': 'Drop-off point'},
-  {'name': 'East Quirino Hill BH', 'address': 'East Quirino Hill BH', 'lat': 16.4310269702782, 'lng': 120.593382481736, 'hours': 'Contact for hours', 'notes': 'Drop-off point'},
-  {'name': 'East Bayan Park Aurora Hill BH', 'address': 'East Bayan Park Aurora Hill BH', 'lat': 16.4272670046257, 'lng': 120.608148434053, 'hours': 'Contact for hours', 'notes': 'Drop-off point'},
-  {'name': 'Andres Bonifacio BH', 'address': 'Andres Bonifacio BH', 'lat': 16.4187129032309, 'lng': 120.584996576787, 'hours': 'Contact for hours', 'notes': 'Drop-off point'},
-  {'name': 'Aurora Hill Proper BH', 'address': 'Aurora Hill Proper BH', 'lat': 16.4243991897677, 'lng': 120.604353913531, 'hours': 'Contact for hours', 'notes': 'Drop-off point'},
-  {'name': 'Lourdes Subd. Proper BH', 'address': 'Lourdes Subd. Proper BH', 'lat': 16.4108665530542, 'lng': 120.582140469289, 'hours': 'Contact for hours', 'notes': 'Drop-off point'},
-  {'name': 'Marcoville BH', 'address': 'Marcoville BH', 'lat': 16.4064235525633, 'lng': 120.603517267252, 'hours': 'Contact for hours', 'notes': 'Drop-off point'},
-  {'name': 'Lourdes Subd Ext BH', 'address': 'Lourdes Subd Ext BH', 'lat': 16.4113611111111, 'lng': 120.584944444445, 'hours': 'Contact for hours', 'notes': 'Drop-off point'},
-  {'name': 'DPS Compound BH', 'address': 'DPS Compound BH', 'lat': 16.4052679068226, 'lng': 120.604203774215, 'hours': 'Contact for hours', 'notes': 'Drop-off point'},
-  {'name': 'Eco Fair @Malcolm', 'address': 'Eco Fair @Malcolm', 'lat': 16.4140563478009, 'lng': 120.595652330814, 'hours': 'Contact for hours', 'notes': 'Event or office'},
-  {'name': 'Military Cut-Off BH', 'address': 'Military Cut-Off BH', 'lat': 16.4021524147217, 'lng': 120.59776347482, 'hours': 'Contact for hours', 'notes': 'Drop-off point'},
-  {'name': 'San Luis Village BH', 'address': 'San Luis Village BH', 'lat': 16.405716285272, 'lng': 120.576662715673, 'hours': 'Contact for hours', 'notes': 'Drop-off point'},
-  {'name': 'New Lucban BH', 'address': 'New Lucban BH', 'lat': 16.4209809059558, 'lng': 120.596738939967, 'hours': 'Contact for hours', 'notes': 'Drop-off point'},
-  {'name': 'East Modern Site BH', 'address': 'East Modern Site BH', 'lat': 16.4219939289564, 'lng': 120.60532040656, 'hours': 'Contact for hours', 'notes': 'Drop-off point'},
-  {'name': 'Holy Ghost Ext. BH', 'address': 'Holy Ghost Ext. BH', 'lat': 16.4185361380742, 'lng': 120.604514252843, 'hours': 'Contact for hours', 'notes': 'Drop-off point'},
-  {'name': 'West Modernsite BH', 'address': 'West Modernsite BH', 'lat': 16.4237150736353, 'lng': 120.603902223997, 'hours': 'Contact for hours', 'notes': 'Drop-off point'},
-  {'name': 'Salud Mitra BH', 'address': 'Salud Mitra BH', 'lat': 16.4113260050516, 'lng': 120.601852323969, 'hours': 'Contact for hours', 'notes': 'Drop-off point'},
-  {'name': 'North Central Aurora Hill BH', 'address': 'North Central Aurora Hill BH', 'lat': 16.4262683188962, 'lng': 120.606372185029, 'hours': 'Contact for hours', 'notes': 'Drop-off point'}
-];
+                { name: "UC", address: "UC", lat: 16.40875, lng: 120.5978032, hours: "Contact for hours", notes: "Event or office" },
+                { name: "SLU", address: "SLU", lat: 16.419005, lng: 120.597123, hours: "Contact for hours", notes: "Event or office" },
+                { name: "UP Baguio", address: "UP Baguio", lat: 16.405246, lng: 120.598592, hours: "Contact for hours", notes: "Event or office" },
+                { name: "TSD Facility", address: "TSD Facility", lat: 16.397634, lng: 120.580367, hours: "Contact for hours", notes: "Event or office" },
+                { name: "Cabinet Hill-T. Camp BH", address: "Cabinet Hill-T. Camp BH", lat: 16.410929, lng: 120.603586, hours: "Contact for hours", notes: "Drop-off point" },
+                { name: "WHWMD Office", address: "WHWMD Office", lat: 16.430204, lng: 120.597355, hours: "Contact for hours", notes: "Event or office" },
+                { name: "Dontogan Barangay Hall", address: "Dontogan Barangay Hall", lat: 16.377249, lng: 120.568491, hours: "Contact for hours", notes: "Event or office" },
+                { name: "Bayan Park", address: "Bayan Park (Community Park)", lat: 16.427070, lng: 120.606786, hours: "Contact for hours", notes: "Community Park location" },
+                { name: "Bayan Park Village BH", address: "Bayan Park Village Barangay Hall", lat: 16.427367, lng: 120.606180, hours: "Contact for hours", notes: "Barangay Hall drop-off point" },
+                { name: "Kabayanihan BH", address: "Kabayanihan BH", lat: 16.414714, lng: 120.596804, hours: "Contact for hours", notes: "Drop-off point" },
+                { name: "Mines View Park BH", address: "Mines View Park BH", lat: 16.419823, lng: 120.626995, hours: "Contact for hours", notes: "Drop-off point" },
+                { name: "St. Joseph BH", address: "St. Joseph BH", lat: 16.417022, lng: 120.611089, hours: "Contact for hours", notes: "Drop-off point" },
+                { name: "Sto. Rosario BH", address: "Sto. Rosario BH", lat: 16.401634, lng: 120.587231, hours: "Contact for hours", notes: "Drop-off point" },
+                { name: "Camp Allen BH", address: "Camp Allen BH", lat: 16.415743, lng: 120.592153, hours: "Contact for hours", notes: "Drop-off point" },
+                { name: "Slaughter House BH", address: "Slaughter House BH", lat: 16.420429, lng: 120.594461, hours: "Contact for hours", notes: "Drop-off point" },
+                { name: "East Quirino Hill BH", address: "East Quirino Hill BH", lat: 16.431027, lng: 120.593382, hours: "Contact for hours", notes: "Drop-off point" },
+                { name: "Military Cut-Off BH", address: "Military Cut-Off BH", lat: 16.402152, lng: 120.597763, hours: "Contact for hours", notes: "Drop-off point" },
+                { name: "San Luis Village BH", address: "San Luis Village BH", lat: 16.405716, lng: 120.576663, hours: "Contact for hours", notes: "Drop-off point" },
+                { name: "New Lucban BH", address: "New Lucban BH", lat: 16.420981, lng: 120.596739, hours: "Contact for hours", notes: "Drop-off point" },
+                { name: "East Modern Site BH", address: "East Modern Site BH", lat: 16.421994, lng: 120.605320, hours: "Contact for hours", notes: "Drop-off point" },
+                { name: "Holy Ghost Ext. BH", address: "Holy Ghost Ext. BH", lat: 16.418536, lng: 120.604514, hours: "Contact for hours", notes: "Drop-off point" },
+                { name: "Salud Mitra BH", address: "Salud Mitra BH", lat: 16.411326, lng: 120.601852, hours: "Contact for hours", notes: "Drop-off point" },
+                { name: "East Bayan Park Aurora Hill BH", address: "East Bayan Park Aurora Hill BH", lat: 16.427267, lng: 120.608148, hours: "Contact for hours", notes: "Drop-off point" },
+                { name: "Andres Bonifacio BH", address: "Andres Bonifacio BH", lat: 16.418713, lng: 120.584997, hours: "Contact for hours", notes: "Drop-off point" },
+                { name: "Aurora Hill Proper BH", address: "Aurora Hill Proper BH", lat: 16.424399, lng: 120.604354, hours: "Contact for hours", notes: "Drop-off point" },
+                { name: "Lourdes Subd. Proper BH", address: "Lourdes Subd. Proper BH", lat: 16.410867, lng: 120.582140, hours: "Contact for hours", notes: "Drop-off point" },
+                { name: "Marcoville BH", address: "Marcoville BH", lat: 16.406424, lng: 120.603517, hours: "Contact for hours", notes: "Drop-off point" },
+                { name: "Lourdes Subd Ext BH", address: "Lourdes Subd Ext BH", lat: 16.411361, lng: 120.584944, hours: "Contact for hours", notes: "Drop-off point" },
+                { name: "DPS Compound BH", address: "DPS Compound BH", lat: 16.405268, lng: 120.604204, hours: "Contact for hours", notes: "Drop-off point" },
+                { name: "Eco Fair @Malcolm", address: "Eco Fair @Malcolm", lat: 16.414056, lng: 120.595652, hours: "Contact for hours", notes: "Event or office" },
+                { name: "Burnham-Legarda BH", address: "Burnham-Legarda BH", lat: 16.408383, lng: 120.594757, hours: "Contact for hours", notes: "Drop-off point" },
+                { name: "West Modernsite BH", address: "West Modernsite BH", lat: 16.423715, lng: 120.603902, hours: "Contact for hours", notes: "Drop-off point" }
+            ];
             locations.forEach(loc => {
                 const marker = L.marker([loc.lat, loc.lng]);
                 marker.bindPopup(`<b>${loc.name}</b><br>${loc.address}<br><i>${loc.hours}</i><br>${loc.notes}`);
