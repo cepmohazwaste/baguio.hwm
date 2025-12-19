@@ -90,6 +90,8 @@
             font-size: 1.1em;
             border: 2px solid #ffeaa7;
         }
+
+        /* New smaller, professional download button */
         .download-pdf {
             text-align: center;
             margin: 30px 0;
@@ -97,29 +99,30 @@
         .download-pdf a {
             background: #228B22;
             color: white;
-            padding: 16px 35px;
-            border-radius: 10px;
+            padding: 12px 28px;
+            border-radius: 8px;
             text-decoration: none;
             font-weight: bold;
-            font-size: 1.2em;
+            font-size: 1.1em;
             display: inline-flex;
             align-items: center;
             gap: 10px;
-            box-shadow: 0 5px 10px rgba(0,0,0,0.15);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.15);
             transition: all 0.3s ease;
         }
         .download-pdf a:hover {
             background: #006400;
-            transform: translateY(-3px);
-            box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(0,0,0,0.2);
         }
         .download-pdf i {
-            font-size: 1.6em;
+            font-size: 1.3em;
         }
+
         .ordinance-title {
             text-align: center;
             color: #228B22;
-            font-size: 1.8em; /* smaller desktop title */
+            font-size: 1.8em;
             margin: 20px 0 30px;
             font-weight: bold;
             line-height: 1.4;
@@ -130,7 +133,7 @@
             padding: 25px;
             box-shadow: 0 6px 12px rgba(0,0,0,0.1);
             margin-bottom: 30px;
-            line-height: 1.6; /* tighter line spacing */
+            line-height: 1.6;
         }
         .toc {
             background: white;
@@ -166,8 +169,8 @@
             border-radius: 12px;
             padding: 25px;
             box-shadow: 0 6px 12px rgba(0,0,0,0.1);
-            margin-bottom: 30px; /* decreased spacing */
-            line-height: 1.6; /* tighter line spacing */
+            margin-bottom: 30px;
+            line-height: 1.6;
         }
         .section h2 {
             color: #228B22;
@@ -253,32 +256,25 @@
         #back-to-top:hover { background: #228B22; transform: scale(1.1); }
         html { scroll-behavior: smooth; }
         .section, .preamble, .toc, .download-pdf { scroll-margin-top: 90px; }
-
-        /* Mobile adjustments */
         @media (max-width: 768px) {
             header { padding: 30px 20px 40px; }
             header h1 { font-size: 2.5em; }
             .logo-container { gap: 20px; margin-bottom: 20px; }
             .logo-container img { height: 60px; padding: 10px; }
-
-            /* First row: 3 items (Home, HHW Guide, Activities) – each ~33% */
             nav a:nth-child(-n+3) {
                 flex-basis: 33.33%;
                 padding: 12px 4px;
                 font-size: 0.85em;
                 box-sizing: border-box;
             }
-
-            /* Second row: 3 items (Announcements, Ordinance, Contact Info) – each ~33% */
             nav a:nth-child(n+4) {
                 flex-basis: 33.33%;
                 padding: 12px 4px;
                 font-size: 0.85em;
                 box-sizing: border-box;
             }
-
             .ordinance-title { font-size: 1.5em; }
-            .download-pdf a { padding: 15px 25px; font-size: 1.1em; }
+            .download-pdf a { padding: 12px 22px; font-size: 1.05em; }
             .section, .preamble, .toc, .download-pdf { scroll-margin-top: 120px; }
             #back-to-top { width: 45px; height: 45px; font-size: 1.6em; bottom: 20px; right: 20px; }
         }
@@ -308,12 +304,14 @@
         <div class="draft-notice">
             This is a <strong>DRAFT ORDINANCE</strong> has not yet been approved by the Sangguniang Panlungsod (City Council) and is not yet in effect.
         </div>
-        <!-- Beautiful Download Button -->
+
+        <!-- Smaller, professional Download Button -->
         <div class="download-pdf">
             <a href="docs/Baguio_Hazardous_Waste_Ordinance_Draft.pdf" download>
                 <i class="fas fa-file-pdf"></i> Download Full Ordinance Draft (PDF)
             </a>
         </div>
+
         <h1 class="ordinance-title">AN ORDINANCE ESTABLISHING A LOCAL HAZARDOUS WASTE PROGRAM, PROVIDING GUIDELINES FOR THE HANDLING, STORAGE, COLLECTION, TRANSPORT, TREATMENT, AND DISPOSAL OF HAZARDOUS WASTE IN THE CITY OF BAGUIO</h1>
         <!-- Preamble -->
         <div class="preamble">
