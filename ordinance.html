@@ -67,14 +67,14 @@
         .container { max-width: 1200px; margin: 0 auto; padding: 20px; }
         .sponsor {
             text-align: center;
-            font-size: 1.4em;
+            font-size: 1.3em;
             color: #228B22;
             margin: 20px 0 10px;
             font-weight: bold;
         }
         .committee {
             text-align: center;
-            font-size: 1.2em;
+            font-size: 1.1em;
             color: #006400;
             margin-bottom: 10px;
         }
@@ -87,25 +87,25 @@
             margin: 20px auto;
             max-width: 900px;
             font-weight: bold;
-            font-size: 1.2em;
+            font-size: 1.1em;
             border: 2px solid #ffeaa7;
         }
         .download-pdf {
             text-align: center;
-            margin: 40px 0;
+            margin: 30px 0;
         }
         .download-pdf a {
             background: #228B22;
             color: white;
-            padding: 18px 40px;
-            border-radius: 12px;
+            padding: 16px 35px;
+            border-radius: 10px;
             text-decoration: none;
             font-weight: bold;
-            font-size: 1.3em;
+            font-size: 1.2em;
             display: inline-flex;
             align-items: center;
-            gap: 12px;
-            box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+            gap: 10px;
+            box-shadow: 0 5px 10px rgba(0,0,0,0.15);
             transition: all 0.3s ease;
         }
         .download-pdf a:hover {
@@ -114,29 +114,30 @@
             box-shadow: 0 8px 16px rgba(0,0,0,0.2);
         }
         .download-pdf i {
-            font-size: 1.8em;
+            font-size: 1.6em;
         }
         .ordinance-title {
             text-align: center;
             color: #228B22;
-            font-size: 2.2em;
-            margin: 20px 0 40px;
+            font-size: 1.8em; /* smaller desktop title */
+            margin: 20px 0 30px;
             font-weight: bold;
+            line-height: 1.4;
         }
         .preamble {
             background: white;
             border-radius: 12px;
-            padding: 30px;
+            padding: 25px;
             box-shadow: 0 6px 12px rgba(0,0,0,0.1);
-            margin-bottom: 40px;
-            line-height: 2;
+            margin-bottom: 30px;
+            line-height: 1.6; /* tighter line spacing */
         }
         .toc {
             background: white;
             border-radius: 12px;
-            padding: 25px;
+            padding: 20px;
             box-shadow: 0 6px 12px rgba(0,0,0,0.1);
-            margin-bottom: 40px;
+            margin-bottom: 30px;
         }
         .toc h2 {
             color: #228B22;
@@ -148,13 +149,13 @@
             padding: 0;
         }
         .toc li {
-            margin: 12px 0;
+            margin: 10px 0;
         }
         .toc a {
             color: #006400;
             text-decoration: none;
             font-weight: bold;
-            font-size: 1.1em;
+            font-size: 1em;
         }
         .toc a:hover {
             color: #228B22;
@@ -163,28 +164,29 @@
         .section {
             background: white;
             border-radius: 12px;
-            padding: 30px;
+            padding: 25px;
             box-shadow: 0 6px 12px rgba(0,0,0,0.1);
-            margin-bottom: 40px;
-            line-height: 1.8;
+            margin-bottom: 30px; /* decreased spacing */
+            line-height: 1.6; /* tighter line spacing */
         }
         .section h2 {
             color: #228B22;
             border-bottom: 2px solid #32CD32;
-            padding-bottom: 10px;
+            padding-bottom: 8px;
             margin-top: 0;
+            font-size: 1.4em;
         }
         .section ul {
-            padding-left: 40px;
+            padding-left: 35px;
         }
         .section table {
             width: 100%;
             border-collapse: collapse;
-            margin: 20px 0;
+            margin: 15px 0;
         }
         .section table th, .section table td {
             border: 1px solid #228B22;
-            padding: 12px;
+            padding: 10px;
             text-align: left;
         }
         .section table th {
@@ -195,12 +197,12 @@
         .important-note {
             background: #d4edda;
             color: #155724;
-            padding: 20px;
+            padding: 18px;
             border-radius: 10px;
-            margin: 25px 0;
+            margin: 20px 0;
             text-align: center;
             font-weight: bold;
-            font-size: 1.1em;
+            font-size: 1em;
             border: 2px solid #c3e6cb;
         }
         footer {
@@ -249,13 +251,8 @@
         }
         #back-to-top.show { opacity: 1; visibility: visible; }
         #back-to-top:hover { background: #228B22; transform: scale(1.1); }
-        /* Smooth scroll and anchor offset fix */
-        html {
-            scroll-behavior: smooth;
-        }
-        .section, .preamble, .toc, .download-pdf {
-            scroll-margin-top: 90px;
-        }
+        html { scroll-behavior: smooth; }
+        .section, .preamble, .toc, .download-pdf { scroll-margin-top: 90px; }
         @media (max-width: 768px) {
             header { padding: 30px 20px 40px; }
             header h1 { font-size: 2.5em; }
@@ -263,11 +260,10 @@
             .logo-container img { height: 60px; padding: 10px; }
             nav a { flex-basis: 33.33%; padding: 12px 4px; font-size: 0.85em; box-sizing: border-box; }
             nav a:nth-child(4), nav a:nth-child(5) { flex-basis: 50%; }
+            .ordinance-title { font-size: 1.5em; } /* smaller on mobile */
             .download-pdf a { padding: 15px 25px; font-size: 1.1em; }
+            .section, .preamble, .toc, .download-pdf { scroll-margin-top: 120px; }
             #back-to-top { width: 45px; height: 45px; font-size: 1.6em; bottom: 20px; right: 20px; }
-            .section, .preamble, .toc, .download-pdf {
-                scroll-margin-top: 120px;
-            }
         }
     </style>
 </head>
