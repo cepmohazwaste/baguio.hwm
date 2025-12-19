@@ -86,6 +86,29 @@
         .important-note { background: #d4edda; color: #155724; padding: 20px; border-radius: 10px; margin: 25px 0; text-align: center; font-weight: bold; font-size: 1.1em; border: 2px solid #c3e6cb; }
         .warning-note { background: #fff3cd; color: #856404; padding: 20px; border-radius: 10px; margin: 25px 0; text-align: center; font-weight: bold; }
         #map { height: 500px; border-radius: 12px; margin: 30px 0; box-shadow: 0 6px 12px rgba(0,0,0,0.1); }
+        /* Locate button */
+        .locate-button {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            z-index: 1000;
+            background: #228B22;
+            color: white;
+            border: none;
+            padding: 12px 16px;
+            border-radius: 8px;
+            font-size: 1em;
+            font-weight: bold;
+            cursor: pointer;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .locate-button:hover {
+            background: #006400;
+        }
+        .locate-button i { font-size: 1.2em; }
         footer {
             background: #333;
             color: white;
@@ -193,6 +216,7 @@
             .footer-copyright { padding-top: 15px; margin-top: 15px; }
             .contact-item .label { display: block; margin-bottom: 4px; }
             #back-to-top { width: 45px; height: 45px; font-size: 1.6em; bottom: 20px; left: 20px; right: auto; }
+            .locate-button { padding: 10px 12px; font-size: 0.9em; top: 10px; right: 10px; }
         }
     </style>
 </head>
@@ -295,7 +319,12 @@
             <p style="text-align:center; font-size:1.1em;">
                 Click pins for details. Contact CEPMO for current schedules and event locations.
             </p>
-            <div id="map"></div>
+            <div style="position: relative;">
+                <button class="locate-button" id="locateBtn">
+                    <i class="fas fa-location-crosshairs"></i> Find Nearest Drop-Off
+                </button>
+                <div id="map"></div>
+            </div>
             <div class="grid" id="locations-list"></div>
         </div>
     </div>
@@ -337,6 +366,7 @@
                 btn.classList.remove('show');
             }
         });
+
         function openTab(tabName) {
             document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'));
             document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
@@ -348,6 +378,7 @@
             }
         }
         document.querySelectorAll('.tab-btn').forEach(btn => btn.addEventListener('click', () => openTab(btn.dataset.tab)));
+
         document.getElementById('search-accepted').addEventListener('input', function() {
             const query = this.value.toLowerCase();
             document.querySelectorAll('#accepted-grid .card').forEach(card => {
@@ -366,12 +397,16 @@
                 card.classList.toggle('hidden', !card.textContent.toLowerCase().includes(query));
             });
         });
+
+        let map, markers, userMarker;
+
         function initializeMap() {
-            const map = L.map('map').setView([16.415, 120.593], 13);
+            map = L.map('map').setView([16.415, 120.593], 13);
             L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
                 attribution: '&copy; OpenStreetMap contributors'
             }).addTo(map);
-            const markers = L.markerClusterGroup();
+
+            markers = L.markerClusterGroup();
             const locations = [
                 { name: "UC", address: "UC", lat: 16.40875, lng: 120.5978032, hours: "Contact for hours", notes: "Event or office" },
                 { name: "SLU", address: "SLU", lat: 16.419005, lng: 120.597123, hours: "Contact for hours", notes: "Event or office" },
@@ -406,10 +441,14 @@
                 { name: "Burnham-Legarda BH", address: "Burnham-Legarda BH", lat: 16.408383, lng: 120.594757, hours: "Contact for hours", notes: "Drop-off point" },
                 { name: "West Modernsite BH", address: "West Modernsite BH", lat: 16.423715, lng: 120.603902, hours: "Contact for hours", notes: "Drop-off point" }
             ];
+
             locations.forEach(loc => {
-                const marker = L.marker([loc.lat, loc.lng]);
-                marker.bindPopup(`<b>${loc.name}</b><br>${loc.address}<br><i>${loc.hours}</i><br>${loc.notes}`);
+                const marker = L.marker([loc.lat, loc.lng]).bindPopup(
+                    `<b>${loc.name}</b><br>${loc.address}<br><i>${loc.hours}</i><br>${loc.notes}`
+                );
+                marker.locationData = loc; // Attach data for nearest calculation
                 markers.addLayer(marker);
+
                 const card = document.createElement('div');
                 card.className = 'card';
                 card.innerHTML = `<h3>${loc.name}</h3>
@@ -419,7 +458,60 @@
                                   <p><strong>GPS:</strong> ${loc.lat.toFixed(4)}, ${loc.lng.toFixed(4)}</p>`;
                 document.getElementById('locations-list').appendChild(card);
             });
+
             map.addLayer(markers);
+
+            // Locate button functionality
+            document.getElementById('locateBtn').addEventListener('click', function() {
+                if (!navigator.geolocation) {
+                    alert('Geolocation is not supported by your browser.');
+                    return;
+                }
+
+                this.disabled = true;
+                this.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Locating...';
+
+                map.locate({ setView: true, maxZoom: 16 });
+
+                map.on('locationfound', function(e) {
+                    const radius = e.accuracy / 2;
+
+                    if (userMarker) map.removeLayer(userMarker);
+                    userMarker = L.marker(e.latlng).addTo(map)
+                        .bindPopup(`You are here (accuracy: ±${Math.round(radius)}m)`).openPopup();
+                    L.circle(e.latlng, radius).addTo(map);
+
+                    // Find nearest drop-off point
+                    let nearest = null;
+                    let minDist = Infinity;
+
+                    markers.eachLayer(function(marker) {
+                        const dist = map.distance(e.latlng, marker.getLatLng());
+                        if (dist < minDist) {
+                            minDist = dist;
+                            nearest = marker;
+                        }
+                    });
+
+                    if (nearest) {
+                        const distKm = (minDist / 1000).toFixed(2);
+                        map.setView(nearest.getLatLng(), 16);
+                        nearest.openPopup();
+                        nearest.getPopup().setContent(
+                            nearest.getPopup().getContent() + `<br><br><strong>Nearest to you: ~${distKm} km away</strong>`
+                        );
+                    }
+
+                    document.getElementById('locateBtn').innerHTML = '<i class="fas fa-location-crosshairs"></i> Find Nearest Drop-Off';
+                    document.getElementById('locateBtn').disabled = false;
+                });
+
+                map.on('locationerror', function() {
+                    alert('Unable to find your location. Please allow location access and try again.');
+                    document.getElementById('locateBtn').innerHTML = '<i class="fas fa-location-crosshairs"></i> Find Nearest Drop-Off';
+                    document.getElementById('locateBtn').disabled = false;
+                });
+            });
         }
     </script>
     <script type="text/javascript">window.$crisp=[];window.CRISP_WEBSITE_ID="5a71dc8c-0080-4374-8e55-960b01efcfa0";(function(){d=document;s=d.createElement("script");s.src="https://client.crisp.chat/l.js";s.async=1;d.getElementsByTagName("head")[0].appendChild(s);})();</script>
