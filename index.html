@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.4.1/dist/MarkerCluster.Default.css" />
     <link rel="icon" type="image/x-icon" href="logo.ico">
     <link rel="shortcut icon" type="image/x-icon" href="logo.ico">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <style>
         body { font-family: 'Segoe UI', Arial, sans-serif; margin: 0; padding: 0; background-color: #f8f9fa; color: #333; line-height: 1.6; }
         header {
@@ -57,7 +57,7 @@
         nav a {
             color: white;
             text-decoration: none;
-            padding: 14px 24px; /* Slightly wider main menu items */
+            padding: 14px 24px;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -70,23 +70,23 @@
         nav a:hover {
             background-color: rgba(0, 128, 0, 0.8);
         }
-        /* Dropdown with matching width */
+        /* Dropdown with matching width and working chevron */
         .nav-dropdown {
             position: relative;
         }
-        .nav-dropdown > a::after {
-            content: "\f078"; /* Font Awesome chevron-down – now fixed with proper family */
-            font-family: "Font Awesome 6 Free";
-            font-weight: 900;
-            font-size: 0.75em;
-            margin-left: 6px;
-            opacity: 0.9;
+        .nav-dropdown > a i {
+            margin-left: 8px;
+            font-size: 0.8em;
+            transition: transform 0.3s ease;
+        }
+        .nav-dropdown:hover > a i {
+            transform: rotate(180deg);
         }
         .nav-dropdown-content {
             display: none;
             position: absolute;
             background: #006400;
-            width: 100%; /* Full width of parent (same as main menu item) */
+            width: 100%;
             box-shadow: 0 8px 16px rgba(0,0,0,0.3);
             border-radius: 0 0 8px 8px;
             top: 100%;
@@ -96,10 +96,9 @@
             transition: opacity 0.25s ease, visibility 0.25s ease;
         }
         .nav-dropdown-content a {
-            padding: 12px 24px; /* Same horizontal padding as main menu */
-            font-size: 1em; /* Same font size as main menu */
+            padding: 12px 24px;
+            font-size: 1.05em;
             justify-content: center;
-            white-space: nowrap;
         }
         .nav-dropdown-content a:hover {
             background: #228B22;
@@ -281,7 +280,7 @@
     <nav>
         <a href="index.html">Home</a>
         <div class="nav-dropdown">
-            <a href="laws.html">Laws</a>
+            <a href="laws.html">Laws<i class="fas fa-chevron-down"></i></a>
             <div class="nav-dropdown-content">
                 <a href="hw_laws.html">HW Laws</a>
                 <a href="ordinance.html">Ordinance</a>
