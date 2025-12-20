@@ -68,19 +68,31 @@
             position: relative;
         }
         /* Button used as dropdown trigger (Laws) */
+/* Make button behave EXACTLY like nav links */
 .nav-link {
-    background: none;
-    border: none;
+    all: unset;               /* remove ALL default button styles */
+    box-sizing: border-box;
+
     color: white;
+    text-decoration: none;
     padding: 14px 24px;
+
     display: flex;
     align-items: center;
     justify-content: center;
-    text-align: center;
+
     font-weight: bold;
     font-size: 1.05em;
+    line-height: 1;
+
     cursor: pointer;
 }
+
+/* Hover state identical to nav links */
+.nav-link:hover {
+    background-color: rgba(0, 128, 0, 0.8);
+}
+
 
 .nav-link:hover {
     background-color: rgba(0, 128, 0, 0.8);
