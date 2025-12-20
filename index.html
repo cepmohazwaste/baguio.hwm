@@ -57,33 +57,34 @@
         nav a {
             color: white;
             text-decoration: none;
-            padding: 16px 20px;
+            padding: 14px 18px;
             display: flex;
             align-items: center;
             justify-content: center;
             text-align: center;
             font-weight: bold;
-            font-size: 1.1em;
+            font-size: 1.05em;
             transition: background-color 0.3s ease;
             position: relative;
         }
         nav a:hover {
             background-color: rgba(0, 128, 0, 0.8);
         }
-        /* Improved Dropdown */
+        /* Improved, smaller & narrower dropdown */
         .nav-dropdown {
             position: relative;
         }
         .nav-dropdown > a::after {
             content: " ▼";
-            font-size: 0.8em;
-            margin-left: 5px;
+            font-size: 0.75em;
+            margin-left: 4px;
         }
         .nav-dropdown-content {
             display: none;
             position: absolute;
             background: #006400;
-            min-width: 240px;
+            min-width: 180px; /* Narrower submenu */
+            max-width: 200px;
             box-shadow: 0 8px 16px rgba(0,0,0,0.3);
             border-radius: 0 0 8px 8px;
             top: 100%;
@@ -94,8 +95,8 @@
             transition: opacity 0.3s ease, visibility 0.3s ease, transform 0.2s ease;
         }
         .nav-dropdown-content a {
-            padding: 14px 20px;
-            font-size: 1em;
+            padding: 10px 16px;
+            font-size: 0.95em; /* Smaller font in submenu */
             justify-content: flex-start;
             border-bottom: 1px solid rgba(255,255,255,0.1);
         }
@@ -110,7 +111,7 @@
             display: block;
             opacity: 1;
             visibility: visible;
-            transform: translateX(-50%) translateY(5px);
+            transform: translateX(-50%) translateY(3px);
         }
         .container { max-width: 1200px; margin: 0 auto; padding: 20px; }
         .tabs { display: flex; border-bottom: 3px solid #ddd; margin-bottom: 30px; flex-wrap: wrap; }
@@ -255,11 +256,14 @@
                 position: static;
                 transform: none;
                 left: 0;
+                min-width: auto;
+                max-width: none;
                 box-shadow: none;
                 background: rgba(0,100,0,0.9);
             }
-            .nav-dropdown:hover .nav-dropdown-content {
-                transform: none;
+            .nav-dropdown-content a {
+                font-size: 0.95em;
+                padding: 12px 20px;
             }
             .tab-btn { flex-basis: 100%; font-size: 1.1em; }
             footer { padding: 20px; }
