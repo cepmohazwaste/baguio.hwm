@@ -100,7 +100,7 @@
             margin: 50px 0;
         }
         .past-event-photo img {
-            max-width: 500px; /* Limits width so portrait photo doesn't stretch too wide */
+            max-width: 500px;
             width: 100%;
             height: auto;
             border-radius: 12px;
@@ -112,6 +112,28 @@
             color: #555;
             font-size: 1.1em;
             max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* E-Waste Collection Infographic Section */
+        .ewaste-infographic {
+            text-align: center;
+            margin: 60px 0;
+        }
+        .ewaste-infographic img {
+            max-width: 900px;
+            width: 100%;
+            height: auto;
+            border-radius: 12px;
+            box-shadow: 0 6px 16px rgba(0,0,0,0.15);
+        }
+        .ewaste-infographic p {
+            margin-top: 15px;
+            font-style: italic;
+            color: #555;
+            font-size: 1.1em;
+            max-width: 900px;
             margin-left: auto;
             margin-right: auto;
         }
@@ -209,22 +231,18 @@
             transform: scale(1.1);
         }
         html { scroll-behavior: smooth; }
-        /* Mobile adjustments - matching ordinance.html and updated index.html */
+        /* Mobile adjustments */
         @media (max-width: 768px) {
-            header {
-                padding: 30px 20px 40px;
-            }
+            header { padding: 30px 20px 40px; }
             header h1 { font-size: 2.5em; }
             .logo-container { gap: 20px; margin-bottom: 20px; }
             .logo-container img { height: 60px; padding: 10px; }
-            /* First row: 3 items */
             nav a:nth-child(-n+3) {
                 flex-basis: 33.33%;
                 padding: 12px 4px;
                 font-size: 0.85em;
                 box-sizing: border-box;
             }
-            /* Second row: 3 items */
             nav a:nth-child(n+4) {
                 flex-basis: 33.33%;
                 padding: 12px 4px;
@@ -244,8 +262,9 @@
                 left: 20px;
                 right: auto;
             }
-            .past-event-photo img {
-                max-width: 100%; /* Full width on small screens */
+            .past-event-photo img,
+            .ewaste-infographic img {
+                max-width: 100%;
             }
         }
     </style>
@@ -279,6 +298,13 @@
             <h3 style="color:#228B22; margin-bottom:20px;">E-waste Collection @ Bayan Community Park</h3>
             <img src="images/past-event.jpg" alt="Residents participating in a past hazardous waste collection event">
             <p>WEEE collection organized by CEPMO at the Bayan Community Park.</p>
+        </div>
+
+        <!-- E-Waste Collection Infographic -->
+        <div class="ewaste-infographic">
+            <h3 style="color:#228B22; margin-bottom:20px;">Quarterly E-Waste Collection Progress (2024–2025)</h3>
+            <img src="images/ewaste-collection-chart.png" alt="Quarterly E-Waste Collection in Baguio City 2024-2025">
+            <p>Data source: CEPMO Hazardous Waste Management Section</p>
         </div>
 
         <div class="activity">
