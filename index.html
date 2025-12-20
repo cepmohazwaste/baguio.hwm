@@ -96,9 +96,10 @@
             transition: opacity 0.25s ease, visibility 0.25s ease;
         }
         .nav-dropdown-content a {
-            padding: 10px 24px; /* Reduced vertical padding to avoid 2 lines */
-            font-size: 0.95em; /* Smaller font for submenu items */
+            padding: 8px 24px; /* Even less vertical padding */
+            font-size: 0.88em; /* Smaller font to guarantee single line */
             justify-content: center;
+            white-space: nowrap;
         }
         .nav-dropdown-content a:hover {
             background: #228B22;
@@ -253,7 +254,7 @@
                 background: rgba(0,100,0,0.9);
             }
             .nav-dropdown-content a {
-                padding: 12px 20px;
+                padding: 10px 20px;
                 font-size: 0.95em;
             }
             .tab-btn { flex-basis: 100%; font-size: 1.1em; }
