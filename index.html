@@ -89,12 +89,11 @@
             display: none;
             position: absolute;
             background: #006400;
-            min-width: 200px;
+            width: 100%;
             box-shadow: 0 8px 16px rgba(0,0,0,0.3);
             border-radius: 0 0 8px 8px;
             top: 100%;
-            left: 50%;
-            transform: translateX(-50%);
+            left: 0;
             opacity: 0;
             visibility: hidden;
             transition: opacity 0.25s ease, visibility 0.25s ease;
@@ -106,7 +105,7 @@
             visibility: visible;
         }
         .nav-dropdown-content a {
-            padding: 10px 20px;
+            padding: 10px 24px;
             font-size: 0.95em;
             justify-content: center;
             white-space: nowrap;
@@ -273,19 +272,18 @@
                 padding: 14px 8px;
                 font-size: 0.92em;
             }
-            /* Mobile dropdown now uses absolute positioning and overlays */
+            /* Mobile: absolute dropdown with same width as parent item */
             .nav-dropdown-content {
                 position: absolute;
-                width: 200px;
-                left: 50%;
-                transform: translateX(-50%);
+                width: 100%;
+                left: 0;
                 background: #006400;
                 box-shadow: 0 8px 16px rgba(0,0,0,0.3);
                 border-radius: 0 0 8px 8px;
             }
             .nav-dropdown-content a {
-                padding: 12px 20px;
-                font-size: 0.95em;
+                padding: 12px 10px;
+                font-size: 0.9em;
             }
             .tab-btn { flex-basis: 100%; font-size: 1.1em; }
             footer { padding: 20px; }
